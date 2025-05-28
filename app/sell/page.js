@@ -620,10 +620,6 @@ export default function SellPage() {
                     <div className="text-green-600 flex-shrink-0">
                       <Check size={20} />
                     </div>
-                    <div className="text-sm text-green-800">
-                      <strong>Looking good!</strong> Your listing is ready to be published. 
-                      Once submitted, it will be reviewed and should go live within 24 hours.
-                    </div>
                     {
                       !title ? (<div className="text-sm text-red-800">
                       <strong>Looking bad!</strong> Your listing is not ready to be published. please check the details and make sure all required fields are filled out.
