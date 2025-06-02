@@ -35,7 +35,7 @@ export async function GET() {
   }
 }
 
-export async function POST(request) {
+export async function POST(req) {
   try {
     const session = await getServerSession(authOptions);
     
@@ -43,7 +43,7 @@ export async function POST(request) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    const { vehicleId } = await request.json();
+    const { vehicleId } = await req.json();
     if (!vehicleId) {
       return NextResponse.json({ error: 'Vehicle ID is required' }, { status: 400 });
     }
@@ -71,14 +71,14 @@ export async function POST(request) {
   }
 }
 
-export async function DELETE(request) {
+export async function DELETE(req) {
   try {
     const session = await getServerSession(authOptions);
     if (!session) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    const { vehicleId } = await request.json();
+    const { vehicleId } = await req.json();
     if (!vehicleId) {
       return NextResponse.json({ error: 'No vehicleId provided' }, { status: 400 });
     }

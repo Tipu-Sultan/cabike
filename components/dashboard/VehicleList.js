@@ -22,7 +22,7 @@ export default function VehicleList({ title, vehicles, emptyMessage, type }) {
   const handleRemoveFavorite = async (vehicleId) => {
     try {
       const response = await fetch('/api/vehicles/favorites', {
-        method: 'DELETE',
+        method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ vehicleId }),
       });

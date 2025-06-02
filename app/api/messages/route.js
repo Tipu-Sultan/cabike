@@ -3,14 +3,14 @@ import connectDB from '@/lib/db';
 import { CabikeMessages } from '@/models/cabike-schemas';
 import { getServerSession } from 'next-auth';
 
-export async function POST(request) {
+export async function POST(req) {
   try {
     const session = await getServerSession();
     if (!session || !session.user) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    const { vehicleId, message } = await request.json();
+    const { vehicleId, message } = await req.json();
     if (!vehicleId || !message) {
       return NextResponse.json({ error: 'Vehicle ID and message are required' }, { status: 400 });
     }
