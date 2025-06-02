@@ -38,7 +38,6 @@ export default function ContactForm({ vehicleId, sellerPhone }) {
       if (!response.ok) throw new Error(data.error || 'Failed to send message');
       setSuccess('Message sent successfully!');
       setMessage('');
-      setShowContactForm(false);
     } catch (err) {
       setError(err.message || 'Failed to send message.');
     } finally {

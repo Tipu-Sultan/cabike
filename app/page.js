@@ -1,23 +1,39 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { ChevronRight, Car, Bike, Search, TrendingUp, Star } from 'lucide-react';
+import { ChevronRight, Car, Bike } from 'lucide-react';
 import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
 import FeaturedVehicle from '@/components/home/FeaturedVehicle';
 import VehicleCard from '@/components/vehicles/VehicleCard';
-import { featuredVehicles, recentVehicles } from '@/lib/vehicle-data';
 import SearchBar from '@/components/home/SearchBar';
 import HowItWorks from '@/components/home/HowItWorks';
 import Testimonials from '@/components/home/Testimonials';
 
 export default function Home() {
   const [activeTab, setActiveTab] = useState('all');
+  const [vehicles, setVehicles] = useState({ featuredVehicles: [], recentVehicles: [] });
+  const [pagination, setPagination] = useState({ currentPage: 1, totalPages: 1, totalVehicles: 0 });
+
+  useEffect(() => {
+    async function fetchVehicles() {
+      try {
+        const response = await fetch(`/api/vehicles/featured?page=1`);
+        if (!response.ok) throw new Error('Failed to fetch vehicles');
+        const data = await response.json();
+        setVehicles({ featuredVehicles: data.featuredVehicles, recentVehicles: data.recentVehicles });
+        setPagination(data.pagination);
+      } catch (error) {
+        console.error('Error fetching vehicles:', error);
+      }
+    }
+    fetchVehicles();
+  }, []);
 
   const filteredVehicles = activeTab === 'all' 
-    ? recentVehicles 
-    : recentVehicles.filter(vehicle => vehicle.type === activeTab);
+    ? vehicles.recentVehicles 
+    : vehicles.recentVehicles.filter(vehicle => vehicle.type === activeTab);
 
   return (
     <main className="min-h-screen">
@@ -71,7 +87,7 @@ export default function Home() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {featuredVehicles.map(vehicle => (
+            {vehicles.featuredVehicles.map(vehicle => (
               <FeaturedVehicle key={vehicle.id} vehicle={vehicle} />
             ))}
           </div>
