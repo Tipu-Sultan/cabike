@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
-import connectDB from '@/lib/db';
+import bcrypt from 'bcrypt';
 import { CabikeUsers } from '@/models/cabike-schemas';
+import connectDB from '@/lib/db';
 
 export async function POST(req) {
   try {
@@ -12,24 +13,36 @@ export async function POST(req) {
       return NextResponse.json({ error: 'All fields are required' }, { status: 400 });
     }
 
+    // Check if user exists
+    const existingUser = await CabikeUsers.findOne({ email });
+    if (existingUser) {
+      return NextResponse.json({ error: 'Email already registered' }, { status: 400 });
+    }
+
     // Validate password strength (matching RegisterPage logic)
     if (password.length < 8 || !/[A-Z]/.test(password) || !/[0-9]/.test(password)) {
       return NextResponse.json({ error: 'Password must be at least 8 characters, include an uppercase letter and a number' }, { status: 400 });
     }
 
+    // Hash password
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+
     // Create user
     const user = new CabikeUsers({
       username: email.split('@')[0],
       email,
-      password: 'hashedPassword',
+      password: hashedPassword,
       fullName,
       isVerified: false,
-      verificationToken:'dsdfjffdsfsd',
+      verificationToken:'djsjfdf'
     });
     await user.save();
 
+    // Send verification email
+    const verificationUrl = `${process.env.NEXT_PUBLIC_APP_URL}/api/auth/verify?token=${verificationToken}`;
 
-   
+    
 
     return NextResponse.json(
       { message: 'Registration successful. Please check your email to verify.' },
