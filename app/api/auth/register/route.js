@@ -1,7 +1,6 @@
 import { NextResponse } from 'next/server';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
-import { CabikeUsers } from '@/models/cabike-schemas';
 import connectDB from '@/lib/db';
 
 export async function POST(req) {
@@ -12,12 +11,6 @@ export async function POST(req) {
     // Validate input
     if (!fullName || !email || !password) {
       return NextResponse.json({ error: 'All fields are required' }, { status: 400 });
-    }
-
-    // Check if user exists
-    const existingUser = await CabikeUsers.findOne({ email });
-    if (existingUser) {
-      return NextResponse.json({ error: 'Email already registered' }, { status: 400 });
     }
 
     // Validate password strength (matching RegisterPage logic)

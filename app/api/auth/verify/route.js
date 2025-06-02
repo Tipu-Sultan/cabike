@@ -3,10 +3,10 @@ import jwt from 'jsonwebtoken';
 import { CabikeUsers } from '@/models/cabike-schemas';
 import connectDB from '@/lib/db';
 
-export async function GET(request) {
+export async function GET(req) {
   try {
     await connectDB();
-    const { searchParams } = new URL(request.url);
+    const { searchParams } = new URL(req.url);
     const token = searchParams.get('token');
 
     if (!token) {

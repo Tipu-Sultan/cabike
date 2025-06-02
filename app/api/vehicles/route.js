@@ -4,7 +4,7 @@ import { authOptions } from "@/lib/authOptions";
 import { CabikeUsers, CabikeVehicles, VehicleImages } from "@/models/cabike-schemas";
 import connectDB from "@/lib/db";
 
-export async function POST(request) {
+export async function POST(req) {
   try {
     await connectDB();
     const session = await getServerSession(authOptions);
@@ -28,7 +28,7 @@ export async function POST(request) {
       engineSize,
       bikeType,
       photos,
-    } = await request.json();
+    } = await req.json();
 
     // Validate required fields
     if (
@@ -110,13 +110,13 @@ export async function POST(request) {
   }
 }
 
-export async function GET(request) {
+export async function GET(req) {
   try {
     await connectDB();
     const session = await getServerSession(authOptions);
 
     // Get pagination parameters from query
-    const { searchParams } = new URL(request.url);
+    const { searchParams } = new URL(req.url);
     const page = parseInt(searchParams.get('page')) || 1;
     const limit = 10; // 10 results per page
     const skip = (page - 1) * limit;
