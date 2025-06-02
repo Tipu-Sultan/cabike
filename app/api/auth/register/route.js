@@ -1,10 +1,5 @@
 import { NextResponse } from 'next/server';
-import bcrypt from 'bcrypt';
-import jwt from 'jsonwebtoken';
-import { CabikeUsers } from '@/models/cabike-schemas';
-import connectDB from '@/lib/db';
-import { sendVerificationEmail } from '@/utils/email';
-import { data } from 'autoprefixer';
+
 
 export async function POST(req) {
   try {
