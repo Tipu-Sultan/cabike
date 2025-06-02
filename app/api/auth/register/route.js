@@ -6,9 +6,9 @@ import connectDB from '@/lib/db';
 import { sendVerificationEmail } from '@/utils/email';
 import { data } from 'autoprefixer';
 
-export async function POST(request) {
+export async function POST(req) {
   try {
-    const { fullName, email, password } = await request.json();
+    const { fullName, email, password } = await req.json();
 
     // Validate input
     if (!fullName || !email || !password) {
