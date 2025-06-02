@@ -44,26 +44,7 @@ export default function About() {
               </Link>
             </div>
           </div>
-          <div className="bg-white rounded-xl shadow-sm p-6">
-            <h2 className="text-2xl font-bold text-gray-800 mb-6">Meet Our Team</h2>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              <div className="p-4 border border-gray-200 rounded-lg text-center">
-                <div className="w-24 h-24 bg-gray-200 rounded-full mx-auto mb-4"></div>
-                <h3 className="text-lg font-semibold text-gray-800">John Doe</h3>
-                <p className="text-gray-600">Founder & CEO</p>
-              </div>
-              <div className="p-4 border border-gray-200 rounded-lg text-center">
-                <div className="w-24 h-24 bg-gray-200 rounded-full mx-auto mb-4"></div>
-                <h3 className="text-lg font-semibold text-gray-800">Jane Smith</h3>
-                <p className="text-gray-600">Chief Technology Officer</p>
-              </div>
-              <div className="p-4 border border-gray-200 rounded-lg text-center">
-                <div className="w-24 h-24 bg-gray-200 rounded-full mx-auto mb-4"></div>
-                <h3 className="text-lg font-semibold text-gray-800">Mike Johnson</h3>
-                <p className="text-gray-600">Head of Operations</p>
-              </div>
-            </div>
-          </div>
+    
         </div>
       </div>
       <Footer />

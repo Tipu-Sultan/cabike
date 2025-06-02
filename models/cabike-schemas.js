@@ -273,6 +273,46 @@ const messageSchema = new Schema({
   createdAt: { type: Date, default: Date.now },
 });
 
+// Testimonials Schema
+const TestimonialsSchema = new Schema({
+  name: {
+    type: String,
+    required: true,
+    trim: true,
+    maxlength: 100,
+  },
+  role: {
+    type: String,
+    required: true,
+    trim: true,
+    maxlength: 50,
+  },
+  image: {
+    type: String,
+    required: true,
+    trim: true,
+    match: [/^https?:\/\/\S+$/, 'Please use a valid URL'],
+  },
+  content: {
+    type: String,
+    required: true,
+    trim: true,
+    minlength: 10,
+    maxlength: 500,
+  },
+  rating: {
+    type: Number,
+    required: true,
+    min: 1,
+    max: 5,
+  },
+  createdAt: {
+    type: Date,
+    default: Date.now,
+  },
+}, { timestamps: true });
+
+TestimonialsSchema.index({ createdAt: -1 });
 
 module.exports = {
   CabikeUsers: mongoose.models.CabikeUsers || mongoose.model('CabikeUsers', CabikeUsersSchema),
@@ -280,5 +320,6 @@ module.exports = {
   VehicleImages: mongoose.models.VehicleImages || mongoose.model('VehicleImages', VehicleImagesSchema),
   FeaturedVehicles: mongoose.models.FeaturedVehicles || mongoose.model('FeaturedVehicles', FeaturedVehiclesSchema),
   Purchases: mongoose.models.Purchases || mongoose.model('Purchases', purchaseSchema),
-  CabikeMessages : mongoose.models.CabikeMessages || mongoose.model('CabikeMessages', messageSchema)
+  CabikeMessages : mongoose.models.CabikeMessages || mongoose.model('CabikeMessages', messageSchema),
+  Testimonials: mongoose.models.Testimonials || mongoose.model('Testimonials', TestimonialsSchema),
 };

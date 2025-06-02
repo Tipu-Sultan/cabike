@@ -155,12 +155,12 @@ export default function Contact() {
                       href="tel:+1-800-555-1234"
                       className="text-blue-600 hover:text-blue-700"
                     >
-                      +1-800-555-1234
+                      +91-9919408817
                     </a>
                   </li>
                   <li>
                     <span className="font-medium text-gray-800">Address:</span>{' '}
-                    123 Cabike Lane, Auto City, USA
+                    Fatehpur, Barabanki, Uttar Pradesh, India
                   </li>
                 </ul>
                 <div className="mt-6">

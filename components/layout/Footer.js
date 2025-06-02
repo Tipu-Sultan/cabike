@@ -15,26 +15,26 @@ export default function Footer() {
               <div className="flex items-center justify-center bg-blue-600 text-white rounded-md w-10 h-10">
                 <Car size={24} className="transform -rotate-12" />
               </div>
-              <span className="font-bold text-2xl">cabike</span>
+              <span className="font-bold text-2xl">Cabike</span>
             </Link>
             <p className="text-gray-400 mb-6">
-              The premier marketplace for buying and selling cars and bikes. 
-              Find your perfect ride or sell your vehicle at the best price.
+              Cabike: Your trusted marketplace for buying and selling cars and bikes. 
+              Founded by Tipu Sultan, we help you find your dream ride or sell your vehicle with ease.
             </p>
             <div className="flex gap-4">
-              <a href="#" className="text-gray-400 hover:text-white transition-colors">
+              <a href="https://facebook.com/cabike" className="text-gray-400 hover:text-white transition-colors">
                 <Facebook size={20} />
               </a>
-              <a href="#" className="text-gray-400 hover:text-white transition-colors">
+              <a href="https://twitter.com/cabike" className="text-gray-400 hover:text-white transition-colors">
                 <Twitter size={20} />
               </a>
-              <a href="#" className="text-gray-400 hover:text-white transition-colors">
+              <a href="https://instagram.com/cabike" className="text-gray-400 hover:text-white transition-colors">
                 <Instagram size={20} />
               </a>
-              <a href="#" className="text-gray-400 hover:text-white transition-colors">
+              <a href="https://linkedin.com/company/cabike" className="text-gray-400 hover:text-white transition-colors">
                 <Linkedin size={20} />
               </a>
-              <a href="#" className="text-gray-400 hover:text-white transition-colors">
+              <a href="https://youtube.com/c/cabike" className="text-gray-400 hover:text-white transition-colors">
                 <Youtube size={20} />
               </a>
             </div>
@@ -121,19 +121,19 @@ export default function Footer() {
               <li className="flex items-start gap-3">
                 <MapPin className="text-gray-400 mt-1 flex-shrink-0" size={18} />
                 <span className="text-gray-400">
-                  123 Market Street, San Francisco, CA 94103, United States
+                  Fatehpur,Barabanki, Uttar Pradesh, India
                 </span>
               </li>
               <li className="flex items-center gap-3">
                 <Phone className="text-gray-400 flex-shrink-0" size={18} />
-                <a href="tel:+14155552671" className="text-gray-400 hover:text-white transition-colors">
-                  (415) 555-2671
+                <a href="tel:+919919408817" className="text-gray-400 hover:text-white transition-colors">
+                  (+91) 9919408817
                 </a>
               </li>
               <li className="flex items-center gap-3">
                 <Mail className="text-gray-400 flex-shrink-0" size={18} />
-                <a href="mailto:info@ridemarket.com" className="text-gray-400 hover:text-white transition-colors">
-                  info@ridemarket.com
+                <a href="mailto:tipu.sultan@cabike.com" className="text-gray-400 hover:text-white transition-colors">
+                  teepukhan729@gmail.com
                 </a>
               </li>
             </ul>
@@ -146,7 +146,7 @@ export default function Footer() {
         {/* Bottom section */}
         <div className="flex flex-col md:flex-row justify-between items-center">
           <p className="text-gray-500 text-sm">
-            © {currentYear} RideMarket. All rights reserved.
+            © {currentYear} Cabike. All rights reserved.
           </p>
           <div className="flex gap-6 mt-4 md:mt-0">
             <Link href="/privacy" className="text-gray-500 text-sm hover:text-gray-300 transition-colors">
