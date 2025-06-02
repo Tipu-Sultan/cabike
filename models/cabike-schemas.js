@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+const bcrypt = require("bcryptjs");
 
 // CabikeUsers Schema
 const CabikeUsersSchema = new Schema({
@@ -66,6 +67,17 @@ const CabikeUsersSchema = new Schema({
     default: Date.now,
   },
 }, { timestamps: true });
+
+// Hash password before saving
+CabikeUsersSchema.pre("save", async function (next) {
+  if (!this.isModified("password")) {
+    return next();
+  }
+  const salt = await bcrypt.genSalt(10);
+  this.password = await bcrypt.hash(this.password, salt);
+  next();
+});
+
 
 CabikeUsersSchema.index({ email: 1 });
 

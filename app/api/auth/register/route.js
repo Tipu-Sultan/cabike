@@ -25,8 +25,6 @@ export async function POST(req) {
       return NextResponse.json({ error: 'Password must be at least 8 characters, include an uppercase letter and a number' }, { status: 400 });
     }
 
-    // Hash password
-
     // Generate verification token
     const verificationToken = jwt.sign({ email }, process.env.NEXTAUTH_SECRET, { expiresIn: '24h' });
 
@@ -34,7 +32,7 @@ export async function POST(req) {
     const user = new CabikeUsers({
       username: email.split('@')[0],
       email,
-      password: 'hashedPassword',
+      password,
       fullName,
       isVerified: false,
       verificationToken,
