@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 import { CabikeUsers } from '@/models/cabike-schemas';
 import connectDB from '@/lib/db';
-import bcrypt from 'bcrypt';
+import bcrypt from "bcryptjs";
 
 // Get all users or a specific user
 export async function GET(request) {
