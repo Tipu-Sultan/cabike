@@ -1,8 +1,10 @@
 import { NextResponse } from 'next/server';
 
+import connectDB from '@/lib/db';
 
 export async function POST(req) {
   try {
+    await connectDB();
     const { fullName, email, password } = await req.json();
 
     // Validate input
@@ -12,7 +14,7 @@ export async function POST(req) {
 
 
     return NextResponse.json(
-      { message: 'Registration successful. Please check your email to verify.',data: { fullName, email } },
+      { message: 'Registration successful. Please check your email to verify.' },
       { status: 201 }
     );
   } catch (error) {
