@@ -35,8 +35,6 @@ export async function POST(req) {
     });
     await user.save();
 
-    // Send verification email
-    const verificationUrl = `${process.env.NEXT_PUBLIC_APP_URL}/api/auth/verify?token=${verificationToken}`;
 
     
 
