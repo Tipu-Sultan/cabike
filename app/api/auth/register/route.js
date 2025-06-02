@@ -1,5 +1,7 @@
 import { NextResponse } from 'next/server';
-
+import bcrypt from 'bcrypt';
+import jwt from 'jsonwebtoken';
+import { CabikeUsers } from '@/models/cabike-schemas';
 import connectDB from '@/lib/db';
 
 export async function POST(req) {
@@ -12,6 +14,24 @@ export async function POST(req) {
       return NextResponse.json({ error: 'All fields are required' }, { status: 400 });
     }
 
+    // Check if user exists
+    const existingUser = await CabikeUsers.findOne({ email });
+    if (existingUser) {
+      return NextResponse.json({ error: 'Email already registered' }, { status: 400 });
+    }
+
+    // Validate password strength (matching RegisterPage logic)
+    if (password.length < 8 || !/[A-Z]/.test(password) || !/[0-9]/.test(password)) {
+      return NextResponse.json({ error: 'Password must be at least 8 characters, include an uppercase letter and a number' }, { status: 400 });
+    }
+
+    // Hash password
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    // Generate verification token
+    const verificationToken = jwt.sign({ email }, process.env.NEXTAUTH_SECRET, { expiresIn: '24h' });
+
+   
 
     return NextResponse.json(
       { message: 'Registration successful. Please check your email to verify.' },
