@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import connectDB from '@/lib/db';
+import { CabikeUsers } from '@/models/cabike-schemas';
 
 export async function POST(req) {
   try {
@@ -15,6 +16,17 @@ export async function POST(req) {
     if (password.length < 8 || !/[A-Z]/.test(password) || !/[0-9]/.test(password)) {
       return NextResponse.json({ error: 'Password must be at least 8 characters, include an uppercase letter and a number' }, { status: 400 });
     }
+
+    // Create user
+    const user = new CabikeUsers({
+      username: email.split('@')[0],
+      email,
+      password: hashedPassword,
+      fullName,
+      isVerified: false,
+      verificationToken:'dsdfjffdsfsd',
+    });
+    await user.save();
 
 
    
