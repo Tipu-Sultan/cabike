@@ -21,7 +21,7 @@ export async function POST(req) {
     const user = new CabikeUsers({
       username: email.split('@')[0],
       email,
-      password: hashedPassword,
+      password: 'hashedPassword',
       fullName,
       isVerified: false,
       verificationToken:'dsdfjffdsfsd',
