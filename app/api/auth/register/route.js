@@ -1,6 +1,4 @@
 import { NextResponse } from 'next/server';
-import bcrypt from 'bcrypt';
-import jwt from 'jsonwebtoken';
 import connectDB from '@/lib/db';
 
 export async function POST(req) {
@@ -18,11 +16,6 @@ export async function POST(req) {
       return NextResponse.json({ error: 'Password must be at least 8 characters, include an uppercase letter and a number' }, { status: 400 });
     }
 
-    // Hash password
-    const hashedPassword = await bcrypt.hash(password, 10);
-
-    // Generate verification token
-    const verificationToken = jwt.sign({ email }, process.env.NEXTAUTH_SECRET, { expiresIn: '24h' });
 
    
 
