@@ -13,11 +13,7 @@ export async function POST(req) {
       return NextResponse.json({ error: 'All fields are required' }, { status: 400 });
     }
 
-    // Check if user exists
-    const existingUser = await CabikeUsers.findOne({ email });
-    if (existingUser) {
-      return NextResponse.json({ error: 'Email already registered' }, { status: 400 });
-    }
+   
 
     // Validate password strength (matching RegisterPage logic)
     if (password.length < 8 || !/[A-Z]/.test(password) || !/[0-9]/.test(password)) {
