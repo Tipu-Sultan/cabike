@@ -69,7 +69,7 @@ export async function GET(request) {
 
     // Fetch recent vehicles
     const recentVehicles = await CabikeVehicles.find()
-      .select('title type price year mileage location photos carDetails.fuelType bikeDetails.engineSize listedDate seller')
+      .select('vehicleSlug title type price year mileage location photos carDetails.fuelType bikeDetails.engineSize listedDate seller')
       .populate({
         path: 'photos',
         model: 'VehicleImages',
@@ -90,6 +90,7 @@ export async function GET(request) {
 
     const formattedRecentVehicles = recentVehicles.map((vehicle) => ({
       id: vehicle._id.toString(),
+      vehicleSlug: vehicle.vehicleSlug,
       title: vehicle.title || 'Untitled',
       type: vehicle.type || 'unknown',
       price: vehicle.price || 0,

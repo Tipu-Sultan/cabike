@@ -43,7 +43,7 @@ export default function VehicleCard({ vehicle }) {
   };
 
   return (
-    <Link href={`/vehicles/${vehicle.id}`}>
+    <Link href={`/vehicles/${vehicle.vehicleSlug}`}>
       <div className="bg-white rounded-xl shadow-sm hover:shadow-md transition-all overflow-hidden group">
         <div className="relative h-48 overflow-hidden">
           <img

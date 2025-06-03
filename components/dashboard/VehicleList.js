@@ -4,18 +4,21 @@ import { Trash2, Eye, Heart } from 'lucide-react';
 import Link from 'next/link';
 
 export default function VehicleList({ title, vehicles, emptyMessage, type }) {
-  const handleDelete = async (vehicleId) => {
+  const handleDelete = async (vehicleSlug) => {
     if (!confirm('Are you sure you want to delete this listing?')) return;
     try {
-      const response = await fetch(`/api/vehicles/${vehicleId}`, {
+      const response = await fetch(`/api/vehicles/${vehicleSlug}`, {
         method: 'DELETE',
         headers: { 'Content-Type': 'application/json' },
       });
-      if (!response.ok) throw new Error('Failed to delete vehicle');
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || 'Failed to delete vehicle');
+      }
       // Refresh the page or update state
       window.location.reload();
     } catch (error) {
-      alert('Error deleting vehicle');
+      alert(`Error deleting vehicle: ${error.message}`);
     }
   };
 
@@ -26,10 +29,13 @@ export default function VehicleList({ title, vehicles, emptyMessage, type }) {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ vehicleId }),
       });
-      if (!response.ok) throw new Error('Failed to remove favorite');
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || 'Failed to remove favorite');
+      }
       window.location.reload();
     } catch (error) {
-      alert('Error removing favorite');
+      alert(`Error removing favorite: ${error.message}`);
     }
   };
 
@@ -54,7 +60,7 @@ export default function VehicleList({ title, vehicles, emptyMessage, type }) {
               </div>
               <div className="flex space-x-2">
                 <Link
-                  href={`/vehicles/${vehicle._id}`}
+                  href={`/vehicles/${vehicle.vehicleSlug}`}
                   className="text-blue-600 hover:text-blue-700"
                   title="View"
                 >
@@ -62,7 +68,7 @@ export default function VehicleList({ title, vehicles, emptyMessage, type }) {
                 </Link>
                 {type === 'listings' && (
                   <button
-                    onClick={() => handleDelete(vehicle._id)}
+                    onClick={() => handleDelete(vehicle.vehicleSlug)}
                     className="text-red-600 hover:text-red-700"
                     title="Delete"
                   >

@@ -83,6 +83,12 @@ CabikeUsersSchema.index({ email: 1 });
 
 // CabikeVehicles Schema
 const CabikeVehiclesSchema = new Schema({
+  vehicleSlug: {
+    type: String,
+    required: true,
+    trim: true,
+    maxlength: 100,
+  },
   title: {
     type: String,
     required: true,

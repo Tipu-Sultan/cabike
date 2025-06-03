@@ -69,7 +69,7 @@ export default function VehicleDetailPage() {
     };
 
     if (id) fetchData();
-  }, [id, session]);
+  }, [id]);
 
   if (loading) {
     return (

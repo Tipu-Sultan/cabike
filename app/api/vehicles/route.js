@@ -53,6 +53,21 @@ export async function POST(req) {
     // Parse location
     const [city, state] = location.split(",").map((s) => s.trim());
 
+    // Generate vehicleSlug using session username
+    const username = session.user.username || session.user.id; // Fallback to user ID if username is not set
+    const rawSlug = `${username}-${title}`.toLowerCase();
+    const sanitizedSlug = rawSlug
+      .replace(/[^a-z0-9]+/g, '-') // Replace non-alphanumeric with hyphens
+      .replace(/^-+|-+$/g, ''); // Remove leading/trailing hyphens
+
+    // Check for slug uniqueness
+    let vehicleSlug = sanitizedSlug;
+    let slugCount = 1;
+    while (await CabikeVehicles.findOne({ vehicleSlug })) {
+      vehicleSlug = `${sanitizedSlug}-${slugCount}`;
+      slugCount++;
+    }
+
     // Create vehicle
     const vehicle = new CabikeVehicles({
       title,
@@ -65,6 +80,7 @@ export async function POST(req) {
       location: { city, state, country: "IN" },
       description,
       seller: session.user.id,
+      vehicleSlug, // Add the generated slug
       carDetails:
         vehicleType === "car" ? { fuelType, transmission, bodyType } : null,
       bikeDetails:
@@ -98,7 +114,11 @@ export async function POST(req) {
     });
 
     return NextResponse.json(
-      { message: "Vehicle listing created successfully", vehicleId: vehicle._id },
+      {
+        message: "Vehicle listing created successfully",
+        vehicleId: vehicle._id,
+        vehicleSlug: vehicle.vehicleSlug
+      },
       { status: 201 }
     );
   } catch (error) {
@@ -123,7 +143,7 @@ export async function GET(req) {
 
     // Fetch vehicles with only required fields
     const vehicles = await CabikeVehicles.find()
-      .select('title type price year mileage location photos carDetails.fuelType bikeDetails.engineSize listedDate seller')
+      .select('vehicleSlug title type price year mileage location photos carDetails.fuelType bikeDetails.engineSize listedDate seller')
       .populate({
         path: 'photos',
         model: 'VehicleImages',
@@ -154,6 +174,7 @@ export async function GET(req) {
     // Format response
     const formattedVehicles = vehicles.map((vehicle) => ({
       id: vehicle._id.toString(),
+      vehicleSlug: vehicle.vehicleSlug,
       title: vehicle.title || 'Untitled',
       type: vehicle.type || 'unknown',
       price: vehicle.price || 0,
